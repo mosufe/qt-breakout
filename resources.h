@@ -98,7 +98,7 @@ public slots:
 class Brick {
 
   public:
-    Brick(int, int);
+    Brick(int, int, int);
     ~Brick();
 
   public:
@@ -239,7 +239,7 @@ class Breakout : public QWidget{
   private:
     int x;
     int timerId;
-    static const int N_OF_BRICKS = 30;
+    static const int N_OF_BRICKS = 74;
     static const int DELAY = 10;
     static const int TOP_BORDER_COLLISION = 0;
     static const int BOTTOM_BORDER_COLLISION = 1;

@@ -1,9 +1,12 @@
 #include <iostream>
 #include "resources.h"
 
-Brick::Brick(int x, int y) {
+Brick::Brick(int x, int y, int size) {
 
-  image.load(":/images/brickie.png");
+  if (size == 0)
+    image.load(":/images/brickie.png");
+  else if (size == 1)
+    image.load(":/images/brickiesmall.png");
   destroyed = false;
   rect = image.rect();
   rect.translate(x, y);

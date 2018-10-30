@@ -26,9 +26,24 @@ Breakout::Breakout(QWidget *parent)
 
   for (int i=0; i<5; i++) {
     for (int j=0; j<6; j++) {
-      bricks[k] = new Brick(j*40+380, i*40+130);
+      bricks[k] = new Brick(j*40+380, i*40+130, 0);
       k++;
     }
+  }
+
+
+  for (int i=0; i<12; i++) {
+      bricks[k] = new Brick(i*20+378, 108, 1);
+      k++;
+      bricks[k] = new Brick(i*20+378, 327, 1);
+      k++;
+  }
+
+  for (int i=0; i<10; i++) {
+      bricks[k] = new Brick(355, i*20+127, 1);
+      k++;
+      bricks[k] = new Brick(620, i*20+127, 1);
+      k++;
   }
     // load different images fot the rounded paddles.
     paddle->loadImage(PLAYER_PADDLE);
@@ -263,6 +278,7 @@ void Breakout::victory() {
 }
 
 void Breakout::checkCollision() {
+   bool directionChanged = false;
 
   if (ball->getRect().right() > RIGHT_EDGE) {
     remainingBalls--;
@@ -330,12 +346,18 @@ void Breakout::checkCollision() {
       if (!bricks[i]->isDestroyed()) {
         if(bricks[i]->getRect().contains(pointRight) ||
            bricks[i]->getRect().contains(pointLeft)) {
-           ball->setXDir(-ball->getXDir());
+            if(!directionChanged){
+                ball->setXDir(-ball->getXDir());
+                directionChanged = !directionChanged;
+            }
         }
 
-        if(bricks[i]->getRect().contains(pointTop) ||
+        else if(bricks[i]->getRect().contains(pointTop) ||
            bricks[i]->getRect().contains(pointBottom)   ) {
-           ball->setYDir(-ball->getYDir());
+           if(!directionChanged){
+                ball->setYDir(-ball->getYDir());
+                directionChanged = !directionChanged;
+           }
         }
 
         bricks[i]->setDestroyed(true);
